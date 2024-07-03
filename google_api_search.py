@@ -2,6 +2,7 @@ import requests
 import pandas as pd
 from json import loads, dumps
 import json
+from deep_translator import GoogleTranslator
 
 def travel_assistant(lat, lng, topics, total_n):
     ''
@@ -82,7 +83,7 @@ def travel_assistant(lat, lng, topics, total_n):
             reviews = []
 
             for review in review_data['result'].get('reviews', []):
-                reviews.append(review['text'])  # reviews.append(GoogleTranslator(source='auto', target='en').translate(review['text']))
+                reviews.append(GoogleTranslator(source='auto', target='en').translate(review['text']))
 
             reviews_by_place[place_name] = reviews
 
@@ -117,7 +118,7 @@ def travel_assistant(lat, lng, topics, total_n):
     url_distance = "https://maps.googleapis.com/maps/api/distancematrix/json"
     params_distance = {
         "destinations": destination_coords,
-        "origins": "54.32289717788601,10.135591735121587",
+        "origins": f"{lat}, {lng}",
         "mode": "walking",
         "key": "AIzaSyBYtq7koQNE1I66iDEPbUtGvFWAif6ZJr0",
     }
