@@ -11,6 +11,11 @@ def travel_assistant(lat, lng, topics, total_n):
 
     '''Lat and lng should be given as number inputs, which is taken from a geolocation of a person'''
 
+    '''Total_n accounts for a number of places we want to return. By default, google places api returns 20
+    If we want to restrain it to, say 5, we can add that parameter and take first 5 places returned and use only them.
+    This code returns places based on their importance and relevance. If you want to return places based on their distance,
+    you can set rankby to distance in the params section.'''
+
     # Scrape the nearby places
     url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json"
     params = {
@@ -149,9 +154,3 @@ def travel_assistant(lat, lng, topics, total_n):
     save_file.close()
 
     return final_data
-
-
-lattitude=54.32289717788601
-longtitude=10.135591735121587
-
-travel_assistant(lat=lattitude, lng=longtitude, topics="sports", total_n=20)
